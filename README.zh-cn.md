@@ -288,7 +288,7 @@ docker run -d --name layerling -p 3000:3000 -v layerling-thumbnails:/app/.codex/
 的用户运行，所以必须允许该用户写入这个文件夹：`sudo chown 999:999 ./shared-projects`，或者给服务加上
 `user: "1000:1000"`（换成你自己的用户和组编号，`id -u` 和 `id -g` 可查看），让容器以你的身份运行。不加的话，
 文件夹会显示在起始页上，但什么都存不进去。修改后运行 `docker compose up -d`：`docker compose restart` 会保留旧设置。
-`docker exec <container> printenv LAYERLING_SHARED_PROJECTS_DIR` 会显示正在使用的值。
+`docker exec <container> node -p process.env.LAYERLING_SHARED_PROJECTS_DIR` 会显示正在使用的值。
 
 如果要把所有设计都放在这个文件夹里、一个也不留在浏览器中，有一份完整的英文和德文指南，附带自己的 compose 文件和一个更新脚本：它会检查配置、备份文件夹，并回滚失败的更新：[docs/docker](docs/docker/README.md)，作者 Jürgen Keller。设置 `LAYERLING_NEW_DESIGNS_ON_SERVER: "always"` 后，所有新建设计的操作都会进入服务器文件夹：磁贴、打开或导入文件、恢复备份（连同其文件夹）、复制以及从历史中取出的状态；起始页上的“新建文件夹”会建立服务器文件夹。
 

@@ -305,12 +305,12 @@ Mit `LL_BIND=127.0.0.1` ist layerling nur vom eigenen Rechner erreichbar. Sollen
 |---|---|
 | `permission denied: .env` | Der Ordner ist nicht beschreibbar, z. B. `~/OrbStack`. Einen eigenen Ordner verwenden ([5.1](#51-ordner-anlegen)). |
 | `LL_IMAGE_TAG fehlt in .env` | `.env` fehlt oder liegt nicht neben `compose.yaml`. |
-| Kachel „Auf dem Server“ fehlt | `curl -s http://127.0.0.1:3000/api/shared-projects` zeigt den Grund. `docker exec layerling printenv LAYERLING_SHARED_PROJECTS_DIR` muss `/shared-projects` liefern. |
+| Kachel „Auf dem Server“ fehlt | `curl -s http://127.0.0.1:3000/api/shared-projects` zeigt den Grund. `docker exec layerling node -p process.env.LAYERLING_SHARED_PROJECTS_DIR` muss `/shared-projects` liefern. |
 | Speichern auf dem Server schlägt fehl (Linux) | Projektordner nicht für Benutzer 999 beschreibbar, siehe [5.3](#53-einstellungen-in-env). |
 | „Der Serverspeicher nimmt nur Anfragen von dieser Seite an“ | Ein Reverse-Proxy schreibt den Host um, siehe [Abschnitt 11](#11-zugriff-von-anderen-geräten). |
 | Ein Entwurf erscheint auf Browser-Ebene statt unter „Auf dem Server“ | Siehe [Abschnitt 7](#7-welche-entwürfe-landen-wo). „Alle auf den Server legen“ wählen. |
 | Ein neuer Ordner erscheint nicht im Projektordner | `always` greift nicht, oder die Version ist älter als 1.110.0: Dann legt „Neuer Ordner“ auf der Startseite einen Browser-Ordner an. Ordner innerhalb von „Auf dem Server“ anlegen. |
-| Haken „Neue Entwürfe auf dem Server“ lässt sich anklicken | `always` ist nicht aktiv. `docker exec layerling printenv LAYERLING_NEW_DESIGNS_ON_SERVER` muss `always` liefern. |
+| Haken „Neue Entwürfe auf dem Server“ lässt sich anklicken | `always` ist nicht aktiv. `docker exec layerling node -p process.env.LAYERLING_NEW_DESIGNS_ON_SERVER` muss `always` liefern. |
 | `update.sh` findet keine neue Version, obwohl auf GitHub eine erschienen ist | Das Docker-Image wird einige Minuten nach dem Release gebaut. Später erneut versuchen. |
 | `update.sh --check` spielt nichts ein | So gewollt: `--check` prüft nur. |
 | `Update läuft bereits` | Ein früherer Lauf wurde abgebrochen. `rmdir ~/layerling-docker/.update.lock` |

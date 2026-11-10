@@ -283,7 +283,7 @@ docker run -d --name layerling -p 3000:3000 -v layerling-thumbnails:/app/.codex/
 搭配 `LAYERLING_SHARED_PROJECTS_DIR: "/shared-projects"`（見[網路上的共用設計](#網路上的共用設計)）。容器以 UID 999 的身分執行，所以必須允許該使用者寫入這個資料夾：`sudo chown 999:999 ./shared-projects`，或給服務加上
 `user: "1000:1000"`（換成你自己的使用者和群組編號，`id -u` 和 `id -g` 可查看），讓容器以你的身分執行。不加的話，
 資料夾會顯示在起始頁上，但什麼都存不進去。修改後執行 `docker compose up -d`：`docker compose restart` 會保留舊設定。
-`docker exec <container> printenv LAYERLING_SHARED_PROJECTS_DIR` 會顯示正在使用的值。
+`docker exec <container> node -p process.env.LAYERLING_SHARED_PROJECTS_DIR` 會顯示正在使用的值。
 
 如果要把所有設計都放在這個資料夾裡、一個也不留在瀏覽器中，有一份完整的英文與德文指南，附帶自己的 compose 檔案和一個更新指令碼：它會檢查設定、備份資料夾，並復原失敗的更新：[docs/docker](docs/docker/README.md)，作者 Jürgen Keller。設定 `LAYERLING_NEW_DESIGNS_ON_SERVER: "always"` 後，所有新增設計的操作都會進入伺服器資料夾：磁貼、開啟或匯入檔案、還原備份（連同其資料夾）、複製以及從歷史中取出的狀態；起始頁上的「新增資料夾」會建立伺服器資料夾。
 

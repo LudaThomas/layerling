@@ -305,12 +305,12 @@ With `LL_BIND=127.0.0.1`, layerling is reachable from this computer only. If oth
 |---|---|
 | `permission denied: .env` | The folder is not writable, e.g. `~/OrbStack`. Use a folder of your own ([5.1](#51-create-the-folders)). |
 | `LL_IMAGE_TAG missing in .env` | `.env` is missing or not next to `compose.yaml`. |
-| "On the server" tile is missing | `curl -s http://127.0.0.1:3000/api/shared-projects` shows the reason. `docker exec layerling printenv LAYERLING_SHARED_PROJECTS_DIR` must return `/shared-projects`. |
+| "On the server" tile is missing | `curl -s http://127.0.0.1:3000/api/shared-projects` shows the reason. `docker exec layerling node -p process.env.LAYERLING_SHARED_PROJECTS_DIR` must return `/shared-projects`. |
 | Saving to the server fails (Linux) | The projects folder is not writable for user 999, see [5.3](#53-settings-in-env). |
 | "Shared projects only accept requests from this site." | A reverse proxy rewrites the host, see [section 11](#11-access-from-other-devices). |
 | A design appears at browser level instead of under "On the server" | The server could not be reached when it was made, or the version is older than 1.110.0, see [section 7](#7-which-designs-end-up-where). Choose "Put all on the server". |
 | A new folder does not appear in the projects folder | `always` is not active, or the version is older than 1.110.0: then "New folder" on the start page makes a browser folder. Create folders inside "On the server". |
-| The "New designs on the server" checkbox can be clicked | `always` is not active. `docker exec layerling printenv LAYERLING_NEW_DESIGNS_ON_SERVER` must return `always`. |
+| The "New designs on the server" checkbox can be clicked | `always` is not active. `docker exec layerling node -p process.env.LAYERLING_NEW_DESIGNS_ON_SERVER` must return `always`. |
 | `update.sh` finds no new version although one was released on GitHub | The Docker image is built a few minutes after the release. Try again later. |
 | `update.sh --check` installs nothing | Intended: `--check` only checks. |
 | `Update already running` | An earlier run was interrupted. `rmdir ~/layerling-docker/.update.lock` |
